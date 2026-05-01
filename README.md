@@ -17,3 +17,14 @@ serve -s build
 http://localhost:3000/workspaces/default/dashboard
 ```
 
+## 02 - Docker
+
+```Dockerfile
+# Build the image
+docker build -t threat-composer:latest .
+
+# Run the image
+docker run -p 80:80 threat-composer:latest
+
+# http://localhost:8080
+```

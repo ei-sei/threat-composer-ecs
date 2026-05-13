@@ -4,7 +4,7 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
-    Name        = "main-vpc"
+    Name        = "tm-vpc"
     environment = var.environment
   }
 }
@@ -13,7 +13,7 @@ resource "aws_vpc" "main" {
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
   tags = {
-    Name        = "main-igw"
+    Name        = "tm-igw"
     environment = var.environment
   }
 }
@@ -67,7 +67,7 @@ resource "aws_subnet" "private_2" {
 resource "aws_eip" "nat" {
   domain = "vpc"
   tags = {
-    Name        = "nat-eip"
+    Name        = "tm-nat-eip"
     environment = var.environment
   }
 }
@@ -77,7 +77,7 @@ resource "aws_nat_gateway" "main" {
   allocation_id = aws_eip.nat.id
   subnet_id     = aws_subnet.public_1.id
   tags = {
-    Name        = "main-nat-gateway"
+    Name        = "tm-nat-gateway"
     environment = var.environment
   }
 }

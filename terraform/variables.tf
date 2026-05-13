@@ -3,3 +3,16 @@ variable "aws_region" {
   type        = string
   default     = "eu-west-2"
 }
+
+variable "environment" {
+  description = "The environment to deploy resources in (e.g., dev, staging, prod)."
+  type        = string
+  default     = "dev"
+}
+
+variable "availability_zones" {
+  description = "List of availability zones to deploy resources in."
+  type        = list(string)
+  default     = ["eu-west-2a", "eu-west-2b"]
+}
+

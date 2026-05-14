@@ -5,16 +5,8 @@ module "network" {
   environment        = var.environment
 }
 
-resource "aws_ecr_repository" "ecr_repository" {
-  name                 = var.ecr_repository_name
-  image_tag_mutability = "MUTABLE"
-
-  image_scanning_configuration {
-    scan_on_push = true
-  }
-
-  tags = {
-    name        = var.ecr_repository_name
-    environment = var.environment
-  }
+module "ecr" {
+  source              = "./modules/ecr"
+  ecr_repository_name = var.ecr_repository_name
+  environment         = var.environment
 }

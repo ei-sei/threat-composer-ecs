@@ -1,8 +1,2 @@
-.*
-!.gitignore
-!.dockerignore
-
-.terraform/
-*.tfvars
-*.tfstate
-*.tfstate.backup
+.terraform*
+terraform.*

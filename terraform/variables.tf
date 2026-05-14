@@ -29,3 +29,9 @@ variable "ecr_repository_name" {
   description = "The name of the ECR repository."
   type        = string
 }
+
+// ACM:
+variable "domain_name" {
+  description = "The domain name for the ACM certificate."
+  type        = string
+}

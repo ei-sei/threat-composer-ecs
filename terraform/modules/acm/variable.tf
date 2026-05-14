@@ -1,0 +1,9 @@
+variable "domain_name" {
+  description = "The domain name for the ACM certificate."
+  type        = string
+}
+
+variable "environment" {
+  description = "The environment for the ACM certificate."
+  type        = string
+}

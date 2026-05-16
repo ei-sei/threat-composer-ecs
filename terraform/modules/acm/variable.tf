@@ -7,3 +7,10 @@ variable "environment" {
   description = "The environment for the ACM certificate."
   type        = string
 }
+
+variable "cloudflare_zone_id" {
+  description = "The Cloudflare Zone ID to use for validating the ACM"
+  type        = string
+}
+
+

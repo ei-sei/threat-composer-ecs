@@ -10,3 +10,8 @@ output "domain_validation_options" {
 output "certificate_status" {
   value = aws_acm_certificate.cert.status
 }
+
+output "validated_certificate" {
+  description = "The validated certificate"
+  value       = aws_acm_certificate_validation.validated_certificate
+}

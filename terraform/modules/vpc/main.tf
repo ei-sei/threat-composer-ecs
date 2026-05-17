@@ -80,6 +80,7 @@ resource "aws_nat_gateway" "main" {
     Name        = "tm-nat-gateway"
     environment = var.environment
   }
+  depends_on = [aws_internet_gateway.main]
 }
 
 

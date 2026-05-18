@@ -12,11 +12,17 @@ module "ecr" {
 }
 
 module "acm" {
-  source      = "./modules/acm"
-  domain_name = var.domain_name
-  environment = var.environment
+  source             = "./modules/acm"
+  domain_name        = var.domain_name
+  environment        = var.environment
   cloudflare_zone_id = var.cloudflare_zone_id
 }
 
 
-
+module "alb" {
+  source            = "./modules/alb"
+  environment       = var.environment
+  vpc_id            = module.network.vpc_id
+  public_subnet_ids = module.network.public_subnet_ids
+  certificate_arn   = module.acm.certificate_arn
+}

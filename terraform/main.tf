@@ -38,3 +38,12 @@ module "ecs" {
   target_group_arn      = module.alb.target_group_arn
   depends_on            = [module.network, module.alb, module.ecr]
 }
+
+resource "cloudflare_dns_record" "app" {
+  zone_id = var.cloudflare_zone_id
+  name    = "tm"
+  type    = "CNAME"
+  content = module.alb.alb_dns_name
+  ttl     = 300
+  proxied = false
+}

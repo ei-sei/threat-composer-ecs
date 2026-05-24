@@ -1,21 +1,37 @@
 # threat-composer-ecs
 
-### Objective
-Build, containerise and deploy the threat composer application using **Docker**, **Terraform**, and **ECS**, with **HTTPS** and a **custom domain**
-
 ## Overview
 
-A containerised web application deployed to AWS using production-grade infrastructure.
+A containerised deployment of the AWS open-source Threat Composer app, running on ECS Fargate behind an Application Load Balancer and served over HTTPS on a custom domain. Infrastructure is fully defined in Terraform, provisioning all AWS resources and Cloudflare DNS records. Deployments are automated via GitHub Actions on every push to `main`.
 
-The infrastructure is fully defined in Terraform, deployed to ECS Fargate behind an Application Load Balancer, served over HTTPS via a custom domain managed on Cloudflare. A GitHub Actions pipeline handles automated builds and deployments on every push to `main`.
+## Project Structure
 
+```
+.
+├── app/                          # Threat Composer application
+├── assets/                       # Diagrams and images for documentation
+├── .github/
+│   └── workflows/
+│       ├── deploy.yml            # Build, push to ECR, deploy to ECS
+│       └── health-checks.yml     # Post-deploy health check
+├── terraform/
+│   ├── modules/
+│   │   ├── vpc/                  # VPC, subnets, NAT gateway, route tables
+│   │   ├── ecr/                  # ECR repository
+│   │   ├── acm/                  # ACM certificate with Cloudflare DNS validation
+│   │   ├── alb/                  # ALB, listeners, target group
+│   │   └── ecs/                  # ECS cluster, Fargate service, IAM roles
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   └── provider.tf
+├── Dockerfile
+└── nginx.conf
+```
 
 ## Architecture
 
 ![architecture](assets/ecs-architecture.png)
-
-
-## Networking
 
 
 ## Local App Setup
@@ -33,6 +49,8 @@ http://localhost:3000/workspaces/default/dashboard
 ```
 
 ## Docker
+
+The image uses a multi-stage build - Node.js 22 Alpine compiles the React app, then the output is copied into a lightweight nginx Alpine image to serve the static files.
 
 ```Dockerfile
 # Build the image
